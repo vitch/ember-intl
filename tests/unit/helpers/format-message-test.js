@@ -66,6 +66,16 @@ module('format-message', function (hooks) {
     assert.equal(this.element.textContent, 'Hello Tom Dale');
   });
 
+  test('messages with nested keys are formatted correctly', async function (assert) {
+    assert.expect(1);
+    this.set('name', {
+      firstName: 'Tom',
+      lastName: 'Dale',
+    });
+    await render(hbs`{{format-message 'Hello {name.firstName} {name.lastName}' name=this.name}}`);
+    assert.equal(this.element.textContent, 'Hello Tom Dale');
+  });
+
   skip('should throw if called with out a value', async function (/*assert*/) {
     // assert.expect(1);
     // expectError(
